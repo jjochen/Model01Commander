@@ -9,35 +9,8 @@
 import Cocoa
 
 @NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate {
+    func applicationDidFinishLaunching(_: Notification) {}
 
-class AppDelegate: NSObject {
-    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-}
-
-
-extension AppDelegate: NSApplicationDelegate {
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        setupStatusItem()
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-    }
-}
-
-fileprivate extension AppDelegate {
-    func setupStatusItem() {
-        statusItem.button?.image = #imageLiteral(resourceName: "menu_bar_icon_16pt")
-
-        let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Preferences...", action: #selector(AppDelegate.settingsMenuItemClicked(_:)), keyEquivalent: ","))
-        menu.addItem(NSMenuItem.separator())
-        menu.addItem(NSMenuItem(title: "Quit Model01 Commander", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
-        statusItem.menu = menu
-    }
-}
-
-fileprivate extension AppDelegate {
-    @objc func settingsMenuItemClicked(_ sender: Any?) {
-        print("settings menu item clicked")
-    }
+    func applicationWillTerminate(_: Notification) {}
 }

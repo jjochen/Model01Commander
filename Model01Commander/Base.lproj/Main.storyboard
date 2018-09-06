@@ -676,6 +676,30 @@
                 </application>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Model01Commander" customModuleProvider="target"/>
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
+                <customObject id="udg-Zd-01b" customClass="StatusMenuController" customModule="Model01Commander" customModuleProvider="target">
+                    <connections>
+                        <outlet property="menu" destination="ara-Fb-irE" id="npd-et-umq"/>
+                    </connections>
+                </customObject>
+                <menu title="Status Bar Menu" id="ara-Fb-irE">
+                    <items>
+                        <menuItem title="Model01: connected" enabled="NO" id="iBI-yP-apn">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="xM8-GD-BSf"/>
+                        <menuItem title="Preferences..." keyEquivalent="," id="FOP-y0-v8a">
+                            <connections>
+                                <action selector="preferencesClicked:" target="udg-Zd-01b" id="cDT-iH-Ibs"/>
+                            </connections>
+                        </menuItem>
+                        <menuItem isSeparatorItem="YES" id="bRv-wE-B9i"/>
+                        <menuItem title="Quit Model01 Commander" keyEquivalent="q" id="tsq-Ks-Tqc">
+                            <connections>
+                                <action selector="quitClicked:" target="udg-Zd-01b" id="A1L-am-Yr7"/>
+                            </connections>
+                        </menuItem>
+                    </items>
+                </menu>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>

@@ -12,6 +12,7 @@
 		1938410B2141493100EE0013 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1938410A2141493100EE0013 /* Assets.xcassets */; };
 		1938410E2141493100EE0013 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1938410C2141493100EE0013 /* Main.storyboard */; };
 		1938411A2141493100EE0013 /* Model01CommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841192141493100EE0013 /* Model01CommanderTests.swift */; };
+		193841252141749400EE0013 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841242141749400EE0013 /* StatusMenuController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		193841152141493100EE0013 /* Model01CommanderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Model01CommanderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		193841192141493100EE0013 /* Model01CommanderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model01CommanderTests.swift; sourceTree = "<group>"; };
 		1938411B2141493100EE0013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		193841242141749400EE0013 /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				193841062141492F00EE0013 /* AppDelegate.swift */,
+				193841242141749400EE0013 /* StatusMenuController.swift */,
 				193841082141492F00EE0013 /* ViewController.swift */,
 				1938410A2141493100EE0013 /* Assets.xcassets */,
 				1938410C2141493100EE0013 /* Main.storyboard */,
@@ -195,6 +198,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				193841252141749400EE0013 /* StatusMenuController.swift in Sources */,
 				193841092141492F00EE0013 /* ViewController.swift in Sources */,
 				193841072141492F00EE0013 /* AppDelegate.swift in Sources */,
 			);
