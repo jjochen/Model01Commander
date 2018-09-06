@@ -10,7 +10,12 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    func applicationDidFinishLaunching(_: Notification) {}
+
+    let serialPortController = SerialPortController()
+
+    func applicationDidFinishLaunching(_: Notification) {
+        serialPortController.connect()
+    }
 
     func applicationWillTerminate(_: Notification) {}
 }
