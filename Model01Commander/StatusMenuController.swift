@@ -71,9 +71,7 @@ fileprivate extension StatusMenuController {
     @IBAction func connectItemClicked(_: NSMenuItem) {
         toggleSerialPortConnection()
     }
-
-    @IBAction func preferencesClicked(_: NSMenuItem) {}
-
+    
     @IBAction func quitClicked(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(sender)
     }

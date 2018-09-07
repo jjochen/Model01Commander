@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		193841072141492F00EE0013 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841062141492F00EE0013 /* AppDelegate.swift */; };
-		193841092141492F00EE0013 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841082141492F00EE0013 /* ViewController.swift */; };
+		193841092141492F00EE0013 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841082141492F00EE0013 /* PreferencesViewController.swift */; };
 		1938410B2141493100EE0013 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1938410A2141493100EE0013 /* Assets.xcassets */; };
 		1938410E2141493100EE0013 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1938410C2141493100EE0013 /* Main.storyboard */; };
 		1938411A2141493100EE0013 /* Model01CommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841192141493100EE0013 /* Model01CommanderTests.swift */; };
@@ -31,7 +31,7 @@
 		04A5A5906D2017FCF0EF2928 /* Pods-Model01Commander.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Model01Commander.release.xcconfig"; path = "Pods/Target Support Files/Pods-Model01Commander/Pods-Model01Commander.release.xcconfig"; sourceTree = "<group>"; };
 		193841032141492F00EE0013 /* Model01Commander.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Model01Commander.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		193841062141492F00EE0013 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		193841082141492F00EE0013 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		193841082141492F00EE0013 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		1938410A2141493100EE0013 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1938410D2141493100EE0013 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1938410F2141493100EE0013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -92,7 +92,7 @@
 			children = (
 				193841062141492F00EE0013 /* AppDelegate.swift */,
 				193841242141749400EE0013 /* StatusMenuController.swift */,
-				193841082141492F00EE0013 /* ViewController.swift */,
+				193841082141492F00EE0013 /* PreferencesViewController.swift */,
 				1938410A2141493100EE0013 /* Assets.xcassets */,
 				1938410C2141493100EE0013 /* Main.storyboard */,
 				1938410F2141493100EE0013 /* Info.plist */,
@@ -291,7 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				193841252141749400EE0013 /* StatusMenuController.swift in Sources */,
-				193841092141492F00EE0013 /* ViewController.swift in Sources */,
+				193841092141492F00EE0013 /* PreferencesViewController.swift in Sources */,
 				193841072141492F00EE0013 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

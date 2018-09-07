@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  PreferencesViewController.swift
 //  Model01Commander
 //
 //  Created by Jochen on 06.09.18.
@@ -8,7 +8,7 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+class PreferencesViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
