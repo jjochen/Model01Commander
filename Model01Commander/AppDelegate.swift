@@ -11,11 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    let serialPortController = SerialPortController()
-
-    func applicationDidFinishLaunching(_: Notification) {
-        serialPortController.connect()
-    }
+    func applicationDidFinishLaunching(_: Notification) {}
 
     func applicationWillTerminate(_: Notification) {}
 }

@@ -678,13 +678,20 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="udg-Zd-01b" customClass="StatusMenuController" customModule="Model01Commander" customModuleProvider="target">
                     <connections>
+                        <outlet property="connectMenuItem" destination="wjz-sy-wpl" id="cym-0o-pXh"/>
                         <outlet property="menu" destination="ara-Fb-irE" id="npd-et-umq"/>
+                        <outlet property="statusMenuItem" destination="iBI-yP-apn" id="SiT-yQ-gKT"/>
                     </connections>
                 </customObject>
                 <menu title="Status Bar Menu" id="ara-Fb-irE">
                     <items>
-                        <menuItem title="Model01: connected" enabled="NO" id="iBI-yP-apn">
+                        <menuItem title="Model01: disconnected" enabled="NO" id="iBI-yP-apn">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem title="Connect" keyEquivalent="c" id="wjz-sy-wpl">
+                            <connections>
+                                <action selector="connectItemClicked:" target="udg-Zd-01b" id="IMZ-9k-9AQ"/>
+                            </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="xM8-GD-BSf"/>
                         <menuItem title="Preferences..." keyEquivalent="," id="FOP-y0-v8a">
