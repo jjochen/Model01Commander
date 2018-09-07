@@ -16,7 +16,11 @@ class StatusMenuController: NSObject {
     @IBOutlet weak var statusMenuItem: NSMenuItem!
     @IBOutlet weak var connectMenuItem: NSMenuItem!
 
+    fileprivate var serialPortManager = ORSSerialPortManager()
     fileprivate var serialPort: ORSSerialPort?
+    // todo: move path and baud rate to settings
+    fileprivate var serialPortPath = "/dev/cu.usbmodemCkbio011"
+    fileprivate var serialPortBaudRate: NSNumber = 9600
     fileprivate var receivedDataString: String?
 
     // todo: move to dynamic settings
@@ -29,8 +33,7 @@ class StatusMenuController: NSObject {
         "diff": "/Applications/SourceTree.app",
         "xcode": "/Applications/Xcode.app",
         "guide": "/Users/jochen/coden/esanum/ios/MEG.xcworkspace",
-        ]
-
+    ]
 
     override init() {
         super.init()
@@ -65,14 +68,11 @@ fileprivate extension StatusMenuController {
 }
 
 fileprivate extension StatusMenuController {
-    @IBAction func connectItemClicked(_ sender: NSMenuItem) {
-        print("Connect menu item clicked")
+    @IBAction func connectItemClicked(_: NSMenuItem) {
         toggleSerialPortConnection()
     }
 
-    @IBAction func preferencesClicked(_: NSMenuItem) {
-        print("Preferences menu item clicked")
-    }
+    @IBAction func preferencesClicked(_: NSMenuItem) {}
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(sender)
@@ -87,9 +87,8 @@ fileprivate extension StatusMenuController {
     }
 
     func connectToSerialPort() {
-        // todo: move path and baud rate to settings
-        serialPort = ORSSerialPort(path: "/dev/cu.usbmodemCkbio011")
-        serialPort?.baudRate = 9600
+        serialPort = ORSSerialPort(path: serialPortPath)
+        serialPort?.baudRate = serialPortBaudRate
         serialPort?.delegate = self
         serialPort?.dtr = true
         serialPort?.rts = true
@@ -112,13 +111,12 @@ fileprivate extension StatusMenuController {
 // MARK: - ORSSerialPortDelegate
 
 extension StatusMenuController: ORSSerialPortDelegate {
-
-    func serialPortWasRemoved(fromSystem serialPort: ORSSerialPort) {
-        self.serialPort = nil
+    func serialPortWasRemoved(fromSystem _: ORSSerialPort) {
+        serialPort = nil
         updateMenu()
     }
 
-    func serialPort(_ serialPort: ORSSerialPort, didReceive data: Data) {
+    func serialPort(_: ORSSerialPort, didReceive data: Data) {
         handleReceivedData(data)
     }
 
@@ -184,7 +182,7 @@ fileprivate extension StatusMenuController {
             return
         }
 
-        print("Warning: Couldn't interpret received data (\(string)).")
+        print("Warning: Received data unknown (\(string)).")
     }
 
     func open(_ app: String) {
@@ -193,7 +191,7 @@ fileprivate extension StatusMenuController {
             return
         }
         guard let path = appMapping[app.lowercased()] else {
-            print("Warning: No mapping for app identfier (\(app)).")
+            print("Warning: App identfier unknown (\(app)).")
             return
         }
         print("Opening \(app) (\(path)) ...")
@@ -214,7 +212,7 @@ extension StatusMenuController: NSUserNotificationCenterDelegate {
         }
     }
 
-    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+    func userNotificationCenter(_: NSUserNotificationCenter, shouldPresent _: NSUserNotification) -> Bool {
         return true
     }
 
@@ -233,7 +231,7 @@ extension StatusMenuController: NSUserNotificationCenterDelegate {
         let userNotification = NSUserNotification()
         userNotification.title = title
         userNotification.informativeText = informativeText
-        userNotification.soundName = nil;
+        userNotification.soundName = nil
         userNotificationCenter.deliver(userNotification)
     }
 }
@@ -243,24 +241,23 @@ extension StatusMenuController: NSUserNotificationCenterDelegate {
 extension StatusMenuController {
     fileprivate func registerForNotifications() {
         let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(serialPortsWereConnected(_:)), name: NSNotification.Name.ORSSerialPortsWereConnected, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(serialPortsWereDisconnected(_:)), name: NSNotification.Name.ORSSerialPortsWereDisconnected, object: nil)
+        notificationCenter.addObserver(self,
+                                       selector: #selector(serialPortsWereConnected(_:)),
+                                       name: NSNotification.Name.ORSSerialPortsWereConnected,
+                                       object: nil)
     }
 
     @objc func serialPortsWereConnected(_ notification: Notification) {
         guard let connectedPorts = notification.userInfo?[ORSConnectedSerialPortsKey] as? [ORSSerialPort] else {
             return
         }
-        print("Ports were connected: \(connectedPorts)")
-        // todo
-    }
-
-    @objc func serialPortsWereDisconnected(_ notification: Notification) {
-        guard let disconnectedPorts = notification.userInfo?[ORSDisconnectedSerialPortsKey] as? [ORSSerialPort] else {
-            return
+        connectedPorts.forEach { port in
+            if port.path == serialPortPath {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.connectToSerialPort()
+                }
+                return
+            }
         }
-        print("Ports were disconnected: \(disconnectedPorts)")
-        // todo
     }
 }
-
