@@ -9,7 +9,6 @@
 import Cocoa
 
 class PreferencesViewController: NSViewController {
-
     @IBOutlet var applicationMappingController: NSDictionaryController!
     @IBOutlet var userDefaultsController: NSUserDefaultsController!
 

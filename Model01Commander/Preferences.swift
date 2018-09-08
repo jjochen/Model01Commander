@@ -8,13 +8,13 @@
 
 import Foundation
 
-fileprivate enum PreferencesKey: String {
+private enum PreferencesKey: String {
     case serialPortPath
     case serialPortBaudRate
     case applicationMapping
 }
 
-fileprivate struct DefaultValue {
+private struct DefaultValue {
     static var serialPortPath: String {
         return "/dev/cu.usbmodemCkbio011"
     }
@@ -99,4 +99,3 @@ fileprivate extension Preferences {
         return value
     }
 }
-
