@@ -9,15 +9,11 @@
 import Cocoa
 
 class PreferencesViewController: NSViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+    @IBOutlet var applicationMappingController: NSDictionaryController!
+    @IBOutlet var userDefaultsController: NSUserDefaultsController!
 
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
+    override func viewWillDisappear() {
+        userDefaultsController.save(self)
     }
 }

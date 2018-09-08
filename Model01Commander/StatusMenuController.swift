@@ -23,18 +23,6 @@ class StatusMenuController: NSObject {
     fileprivate var serialPortBaudRate: NSNumber = 9600
     fileprivate var receivedDataString: String?
 
-    // todo: move to dynamic settings
-    fileprivate let appMapping = [
-        "calendar": "/Applications/Calendar.app",
-        "chat": "/Applications/HipChat.app",
-        "browser": "/Applications/Google Chrome.app",
-        "terminal": "/Applications/iTerm.app",
-        "music": "/Applications/iTunes.app",
-        "diff": "/Applications/SourceTree.app",
-        "xcode": "/Applications/Xcode.app",
-        "guide": "/Users/jochen/coden/esanum/ios/MEG.xcworkspace",
-    ]
-
     override init() {
         super.init()
         registerForNotifications()
@@ -48,6 +36,8 @@ class StatusMenuController: NSObject {
     override func awakeFromNib() {
         setupMenu()
         connectToSerialPort()
+
+        print(applicationMapping) // move to Preferences.loadDefaultValues()
     }
 }
 
@@ -139,6 +129,32 @@ extension StatusMenuController: ORSSerialPortDelegate {
     }
 }
 
+fileprivate extension StatusMenuController {
+    var applicationMapping: [String: String] {
+        let userDefaults = UserDefaults.standard
+        let key = "applicationMapping"
+        if let mapping = userDefaults.object(forKey: key) as? [String: String] {
+            return mapping
+        } else {
+            let defaultMapping = [
+                "calendar": "/Applications/Calendar.app",
+                "chat": "/Applications/HipChat.app",
+                "browser": "/Applications/Google Chrome.app",
+                "terminal": "/Applications/iTerm.app",
+                "music": "/Applications/iTunes.app",
+                "diff": "/Applications/SourceTree.app",
+                "xcode": "/Applications/Xcode.app",
+                "guide": "/Users/jochen/coden/esanum/ios/MEG.xcworkspace",
+            ]
+
+            userDefaults.set(defaultMapping, forKey: key)
+            return defaultMapping
+        }
+
+
+    }
+}
+
 // MARK: - Data Processing
 
 fileprivate extension StatusMenuController {
@@ -188,7 +204,7 @@ fileprivate extension StatusMenuController {
             print("Warning: No app identifier.")
             return
         }
-        guard let path = appMapping[app.lowercased()] else {
+        guard let path = applicationMapping[app.lowercased()] else {
             print("Warning: App identfier unknown (\(app)).")
             return
         }

@@ -830,8 +830,12 @@
                             <constraint firstItem="Z98-Q6-mkf" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="zht-rz-r35"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="applicationMappingController" destination="4ac-n8-knS" id="ZNN-x5-NcR"/>
+                        <outlet property="userDefaultsController" destination="EEl-pf-s78" id="oTz-Pw-Yba"/>
+                    </connections>
                 </viewController>
-                <dictionaryController objectClassName="_NSDictionaryControllerKeyValuePair" id="4ac-n8-knS" userLabel="Application Dictionary Controller">
+                <dictionaryController objectClassName="_NSDictionaryControllerKeyValuePair" id="4ac-n8-knS" userLabel="Application Mapping Dictionary Controller">
                     <connections>
                         <binding destination="EEl-pf-s78" name="contentDictionary" keyPath="values.applicationMapping" id="SN3-iP-94k"/>
                     </connections>
