@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14113"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -22,14 +23,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
-                                            <connections>
-                                                <segue destination="XfG-lQ-9wD" kind="modal" id="rVL-TI-dA8"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
                                         <menuItem title="Hide Model01Commander" keyEquivalent="h" id="Olw-nP-bQN">
@@ -730,11 +728,12 @@
                                     <rect key="frame" x="1" y="0.0" width="488" height="200"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="npn-zo-Gl0" id="qKc-g0-beq">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="npn-zo-Gl0" id="qKc-g0-beq">
                                             <rect key="frame" x="0.0" y="0.0" width="488" height="177"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            <tableViewGridLines key="gridStyleMask" vertical="YES"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
                                                 <tableColumn identifier="" width="116" minWidth="40" maxWidth="1000" id="8ng-C0-UM0">
@@ -787,28 +786,57 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WT2-fn-0jg">
-                                <rect key="frame" x="20" y="19" width="57" height="23"/>
-                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="smallSquare" trackingMode="momentary" id="lwL-5b-Eo6">
-                                    <font key="font" metaFont="system"/>
-                                    <segments>
-                                        <segment image="NSAddTemplate"/>
-                                        <segment image="NSRemoveTemplate" tag="1"/>
-                                    </segments>
-                                </segmentedCell>
-                            </segmentedControl>
+                            <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KJd-4w-hI4">
+                                <rect key="frame" x="20" y="20" width="78" height="21"/>
+                                <subviews>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="aIM-Ek-80G">
+                                        <rect key="frame" x="-6" y="-7" width="47" height="32"/>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSAddTemplate" imagePosition="only" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DKp-Ys-HHh">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="add:" target="4ac-n8-knS" id="tPg-pd-RIs"/>
+                                        </connections>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mQV-fG-LlA">
+                                        <rect key="frame" x="37" y="-7" width="47" height="32"/>
+                                        <buttonCell key="cell" type="push" bezelStyle="rounded" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="hQR-xR-MAt">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="remove:" target="4ac-n8-knS" id="uw5-eb-OcV"/>
+                                            <binding destination="4ac-n8-knS" name="enabled" keyPath="canRemove" id="wL9-Ul-oFt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <visibilityPriorities>
+                                    <integer value="1000"/>
+                                    <integer value="1000"/>
+                                </visibilityPriorities>
+                                <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
+                                    <real value="3.4028234663852886e+38"/>
+                                </customSpacing>
+                            </stackView>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="KJd-4w-hI4" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="Q4J-pk-Vir"/>
                             <constraint firstAttribute="trailing" secondItem="Z98-Q6-mkf" secondAttribute="trailing" constant="20" symbolic="YES" id="Q71-Qo-7Ah"/>
+                            <constraint firstItem="KJd-4w-hI4" firstAttribute="top" secondItem="Z98-Q6-mkf" secondAttribute="bottom" constant="8" symbolic="YES" id="THh-TQ-DIZ"/>
                             <constraint firstItem="Z98-Q6-mkf" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="V3M-x9-boo"/>
-                            <constraint firstItem="WT2-fn-0jg" firstAttribute="top" secondItem="Z98-Q6-mkf" secondAttribute="bottom" constant="8" symbolic="YES" id="bur-he-dv9"/>
-                            <constraint firstItem="WT2-fn-0jg" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="xUh-km-J9n"/>
+                            <constraint firstAttribute="bottom" secondItem="KJd-4w-hI4" secondAttribute="bottom" constant="20" symbolic="YES" id="YdJ-sY-keP"/>
                             <constraint firstItem="Z98-Q6-mkf" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="zht-rz-r35"/>
-                            <constraint firstAttribute="bottom" secondItem="WT2-fn-0jg" secondAttribute="bottom" constant="20" symbolic="YES" id="zwb-ca-ePO"/>
                         </constraints>
                     </view>
                 </viewController>
-                <dictionaryController objectClassName="_NSDictionaryControllerKeyValuePair" id="4ac-n8-knS"/>
+                <dictionaryController objectClassName="_NSDictionaryControllerKeyValuePair" id="4ac-n8-knS" userLabel="Application Dictionary Controller">
+                    <connections>
+                        <binding destination="EEl-pf-s78" name="contentDictionary" keyPath="values.applicationMapping" id="SN3-iP-94k"/>
+                    </connections>
+                </dictionaryController>
+                <userDefaultsController representsSharedInstance="YES" id="EEl-pf-s78"/>
             </objects>
             <point key="canvasLocation" x="84" y="336"/>
         </scene>
@@ -817,7 +845,4 @@
         <image name="NSAddTemplate" width="11" height="11"/>
         <image name="NSRemoveTemplate" width="11" height="11"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="g4U-Bb-7Z8"/>
-    </inferredMetricsTieBreakers>
 </document>
