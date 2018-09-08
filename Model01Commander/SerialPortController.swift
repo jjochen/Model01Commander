@@ -172,7 +172,7 @@ fileprivate extension SerialPortController {
             return
         }
         print("Opening \(app) (\(path)) ...")
-        postOpanAppUserNotification(forApp: app)
+        postOpenAppUserNotification(forApp: app)
 
         let task = Process()
         task.launchPath = "/usr/bin/open"
@@ -209,7 +209,7 @@ extension SerialPortController: NSUserNotificationCenterDelegate {
                              informativeText: "Model01 was disconnected from your Mac.")
     }
 
-    fileprivate func postOpanAppUserNotification(forApp app: String) {
+    fileprivate func postOpenAppUserNotification(forApp app: String) {
         postUserNotification(withTitle: "Model01 Commander",
                              informativeText: "Opening \(app).")
     }

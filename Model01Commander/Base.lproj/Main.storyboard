@@ -719,17 +719,17 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <viewController title="Model01 Commander" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="PreferencesViewController" customModule="Model01Commander" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="530" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="589" height="326"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z98-Q6-mkf">
-                                <rect key="frame" x="20" y="49" width="490" height="201"/>
+                                <rect key="frame" x="20" y="49" width="549" height="257"/>
                                 <clipView key="contentView" drawsBackground="NO" id="5IE-zQ-98M">
-                                    <rect key="frame" x="1" y="0.0" width="488" height="200"/>
+                                    <rect key="frame" x="1" y="0.0" width="547" height="256"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="npn-zo-Gl0" id="qKc-g0-beq">
-                                            <rect key="frame" x="0.0" y="0.0" width="488" height="177"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="547" height="233"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -752,7 +752,7 @@
                                                         <binding destination="4ac-n8-knS" name="value" keyPath="arrangedObjects.key" id="Rzu-pm-sgw"/>
                                                     </connections>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="366" minWidth="40" maxWidth="1000" id="iz3-8t-Xyv">
+                                                <tableColumn identifier="" width="425" minWidth="40" maxWidth="1000" id="iz3-8t-Xyv">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Path">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -782,7 +782,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="npn-zo-Gl0">
-                                    <rect key="frame" x="0.0" y="0.0" width="488" height="23"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="547" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
@@ -796,7 +796,7 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="add:" target="4ac-n8-knS" id="tPg-pd-RIs"/>
+                                            <action selector="addButtonClicked:" target="XfG-lQ-9wD" id="3nY-nP-HBo"/>
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mQV-fG-LlA">
@@ -806,11 +806,19 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="remove:" target="4ac-n8-knS" id="uw5-eb-OcV"/>
+                                            <action selector="remove:" target="4ac-n8-knS" id="mkJ-H0-PPL"/>
                                             <binding destination="4ac-n8-knS" name="enabled" keyPath="canRemove" id="wL9-Ul-oFt"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="aIM-Ek-80G" secondAttribute="bottom" id="4aS-fP-kOJ"/>
+                                    <constraint firstItem="aIM-Ek-80G" firstAttribute="top" secondItem="KJd-4w-hI4" secondAttribute="top" id="93A-oO-7Bm"/>
+                                    <constraint firstAttribute="bottom" secondItem="mQV-fG-LlA" secondAttribute="bottom" id="HVW-4o-P7p"/>
+                                    <constraint firstItem="aIM-Ek-80G" firstAttribute="leading" secondItem="KJd-4w-hI4" secondAttribute="leading" id="P1a-Kf-MiH"/>
+                                    <constraint firstAttribute="trailing" secondItem="mQV-fG-LlA" secondAttribute="trailing" id="PmX-gs-CDy"/>
+                                    <constraint firstItem="mQV-fG-LlA" firstAttribute="top" secondItem="KJd-4w-hI4" secondAttribute="top" id="i8h-LC-EKq"/>
+                                </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
@@ -820,8 +828,24 @@
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="37f-NM-6FM">
+                                <rect key="frame" x="503" y="13" width="72" height="32"/>
+                                <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MbS-DM-Jml">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="dismissController:" target="XfG-lQ-9wD" id="fFa-vK-JfT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="37f-NM-6FM" secondAttribute="trailing" constant="20" symbolic="YES" id="Ada-br-VIB"/>
+                            <constraint firstItem="37f-NM-6FM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="KJd-4w-hI4" secondAttribute="trailing" constant="8" symbolic="YES" id="GIT-w2-4Pl"/>
+                            <constraint firstItem="37f-NM-6FM" firstAttribute="centerY" secondItem="KJd-4w-hI4" secondAttribute="centerY" id="JnL-Sm-a86"/>
                             <constraint firstItem="KJd-4w-hI4" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="Q4J-pk-Vir"/>
                             <constraint firstAttribute="trailing" secondItem="Z98-Q6-mkf" secondAttribute="trailing" constant="20" symbolic="YES" id="Q71-Qo-7Ah"/>
                             <constraint firstItem="KJd-4w-hI4" firstAttribute="top" secondItem="Z98-Q6-mkf" secondAttribute="bottom" constant="8" symbolic="YES" id="THh-TQ-DIZ"/>
@@ -842,7 +866,7 @@
                 </dictionaryController>
                 <userDefaultsController representsSharedInstance="YES" id="EEl-pf-s78"/>
             </objects>
-            <point key="canvasLocation" x="84" y="336"/>
+            <point key="canvasLocation" x="113.5" y="364"/>
         </scene>
     </scenes>
     <resources>
