@@ -18,9 +18,6 @@ class StatusMenuController: NSObject {
 
     fileprivate var serialPortManager = ORSSerialPortManager()
     fileprivate var serialPort: ORSSerialPort?
-    // todo: move path and baud rate to settings
-    fileprivate var serialPortPath = "/dev/cu.usbmodemCkbio011"
-    fileprivate var serialPortBaudRate: NSNumber = 9600
     fileprivate var receivedDataString: String?
 
     override init() {
@@ -36,8 +33,6 @@ class StatusMenuController: NSObject {
     override func awakeFromNib() {
         setupMenu()
         connectToSerialPort()
-
-        print(applicationMapping) // move to Preferences.loadDefaultValues()
     }
 }
 
@@ -75,8 +70,8 @@ fileprivate extension StatusMenuController {
     }
 
     func connectToSerialPort() {
-        serialPort = ORSSerialPort(path: serialPortPath)
-        serialPort?.baudRate = serialPortBaudRate
+        serialPort = ORSSerialPort(path: Preferences.serialPortPath)
+        serialPort?.baudRate = Preferences.serialPortBaudRate
         serialPort?.delegate = self
         serialPort?.dtr = true
         serialPort?.rts = true
@@ -129,32 +124,6 @@ extension StatusMenuController: ORSSerialPortDelegate {
     }
 }
 
-fileprivate extension StatusMenuController {
-    var applicationMapping: [String: String] {
-        let userDefaults = UserDefaults.standard
-        let key = "applicationMapping"
-        if let mapping = userDefaults.object(forKey: key) as? [String: String] {
-            return mapping
-        } else {
-            let defaultMapping = [
-                "calendar": "/Applications/Calendar.app",
-                "chat": "/Applications/HipChat.app",
-                "browser": "/Applications/Google Chrome.app",
-                "terminal": "/Applications/iTerm.app",
-                "music": "/Applications/iTunes.app",
-                "diff": "/Applications/SourceTree.app",
-                "xcode": "/Applications/Xcode.app",
-                "guide": "/Users/jochen/coden/esanum/ios/MEG.xcworkspace",
-            ]
-
-            userDefaults.set(defaultMapping, forKey: key)
-            return defaultMapping
-        }
-
-
-    }
-}
-
 // MARK: - Data Processing
 
 fileprivate extension StatusMenuController {
@@ -200,11 +169,7 @@ fileprivate extension StatusMenuController {
     }
 
     func open(_ app: String) {
-        guard app.count > 0 else {
-            print("Warning: No app identifier.")
-            return
-        }
-        guard let path = applicationMapping[app.lowercased()] else {
+        guard let path = Preferences.applicationPath(forKey: app) else {
             print("Warning: App identfier unknown (\(app)).")
             return
         }
@@ -266,7 +231,7 @@ extension StatusMenuController {
             return
         }
         connectedPorts.forEach { port in
-            if port.path == serialPortPath {
+            if port.path == Preferences.serialPortPath {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.connectToSerialPort()
                 }

@@ -13,6 +13,7 @@
 		1938410E2141493100EE0013 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1938410C2141493100EE0013 /* Main.storyboard */; };
 		1938411A2141493100EE0013 /* Model01CommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841192141493100EE0013 /* Model01CommanderTests.swift */; };
 		193841252141749400EE0013 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841242141749400EE0013 /* StatusMenuController.swift */; };
+		1938414F2143C3A800EE0013 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1938414E2143C3A800EE0013 /* Preferences.swift */; };
 		D9AC91CA752DAE1B091FA803 /* Pods_Model01Commander.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273A9A37262F394CA20D684C /* Pods_Model01Commander.framework */; };
 		F1DF5CCD6FB3E8C62385001A /* Pods_Model01CommanderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66D214F0DF5637CACA46BF8 /* Pods_Model01CommanderTests.framework */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		193841192141493100EE0013 /* Model01CommanderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model01CommanderTests.swift; sourceTree = "<group>"; };
 		1938411B2141493100EE0013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		193841242141749400EE0013 /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
+		1938414E2143C3A800EE0013 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		273A9A37262F394CA20D684C /* Pods_Model01Commander.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Model01Commander.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		41568B6A4ED548D52A197C01 /* Pods-Model01Commander.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Model01Commander.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Model01Commander/Pods-Model01Commander.debug.xcconfig"; sourceTree = "<group>"; };
 		4F0F21D188D2FF42953FE05E /* Pods-Model01CommanderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Model01CommanderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Model01CommanderTests/Pods-Model01CommanderTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				193841062141492F00EE0013 /* AppDelegate.swift */,
 				193841242141749400EE0013 /* StatusMenuController.swift */,
 				193841082141492F00EE0013 /* PreferencesViewController.swift */,
+				1938414E2143C3A800EE0013 /* Preferences.swift */,
 				1938410A2141493100EE0013 /* Assets.xcassets */,
 				1938410C2141493100EE0013 /* Main.storyboard */,
 				1938410F2141493100EE0013 /* Info.plist */,
@@ -292,6 +295,7 @@
 			files = (
 				193841252141749400EE0013 /* StatusMenuController.swift in Sources */,
 				193841092141492F00EE0013 /* PreferencesViewController.swift in Sources */,
+				1938414F2143C3A800EE0013 /* Preferences.swift in Sources */,
 				193841072141492F00EE0013 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
