@@ -34,7 +34,7 @@ class TextInputViewController: NSViewController {
     @IBOutlet var label: NSTextField!
     @IBOutlet var textField: NSTextField!
 
-    @IBAction func doneButtonClicked(_ sender: NSButton) {
+    @IBAction func doneButtonClicked(_: NSButton) {
         done()
     }
 
@@ -45,11 +45,10 @@ class TextInputViewController: NSViewController {
 
 extension TextInputViewController {
     static func loadFromStoryboard() -> TextInputViewController? {
-        let storyboard = NSStoryboard(name: NSStoryboard.Name(rawValue: "Main"), bundle: nil)
-        let controller = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "textInputViewController")) as? TextInputViewController
+        let storyboardName = NSStoryboard.Name(rawValue: "Main")
+        let storyboard = NSStoryboard(name: storyboardName, bundle: nil)
+        let sceneIdentifier = NSStoryboard.SceneIdentifier(rawValue: "textInputViewController")
+        let controller = storyboard.instantiateController(withIdentifier: sceneIdentifier) as? TextInputViewController
         return controller
     }
 }
-
-
-

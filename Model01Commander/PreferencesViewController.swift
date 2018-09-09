@@ -87,4 +87,3 @@ extension PreferencesViewController: TextInputViewControllerDelegate {
         addSelectedMapping()
     }
 }
-
