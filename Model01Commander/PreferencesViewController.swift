@@ -49,9 +49,11 @@ extension PreferencesViewController {
     }
 
     fileprivate func selectKey() {
-        selectedKey = nil
-        // todo
-        addSelectedMapping()
+        guard let textInputViewController = TextInputViewController.loadFromStoryboard() else {
+            return
+        }
+        textInputViewController.delegate = self
+        presentViewControllerAsSheet(textInputViewController)
     }
 
     fileprivate func addSelectedMapping() {
@@ -61,3 +63,12 @@ extension PreferencesViewController {
         applicationMappingController.addObject(object)
     }
 }
+
+extension PreferencesViewController: TextInputViewControllerDelegate {
+    func textInputViewControllerDone(_ controller: TextInputViewController, text: String?) {
+        selectedKey = text
+        dismissViewController(controller)
+        addSelectedMapping()
+    }
+}
+
