@@ -1,9 +1,9 @@
 # Change Log
 
-## [Unreleased](https://github.com/jjochen/Model01Commander/tree/HEAD)
-
+## [0.1.0](https://github.com/jjochen/Model01Commander/tree/0.1.0) (2018-09-09)
 **Merged pull requests:**
 
+- Automated deployment [\#2](https://github.com/jjochen/Model01Commander/pull/2)
 -  Initial Setup [\#1](https://github.com/jjochen/Model01Commander/pull/1)
 
 
