@@ -1,4 +1,4 @@
-platform :osx, '10.13'
+platform :osx, '10.12'
 
 target 'Model01Commander' do
   use_frameworks!

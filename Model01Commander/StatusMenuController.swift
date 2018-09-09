@@ -38,6 +38,7 @@ class StatusMenuController: NSObject {
     }
 
     override func awakeFromNib() {
+        super.awakeFromNib()
         setupMenu()
     }
 }
