@@ -210,7 +210,7 @@ extension SerialPortController: NSUserNotificationCenterDelegate {
     }
 
     fileprivate func postOpenAppUserNotification(forApp app: String) {
-        postUserNotification(withTitle: "Model01 Commander",
+        postUserNotification(withTitle: "Model01Commander",
                              informativeText: "Opening \(app).")
     }
 

@@ -702,7 +702,7 @@
                             </connections>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="bRv-wE-B9i"/>
-                        <menuItem title="Quit Model01 Commander" keyEquivalent="q" id="tsq-Ks-Tqc">
+                        <menuItem title="Quit Model01Commander" keyEquivalent="q" id="tsq-Ks-Tqc">
                             <connections>
                                 <action selector="quitClicked:" target="udg-Zd-01b" id="A1L-am-Yr7"/>
                             </connections>
@@ -713,11 +713,11 @@
             </objects>
             <point key="canvasLocation" x="75" y="0.0"/>
         </scene>
-        <!--Model01 Commander-->
+        <!--Model01Commander-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <viewController title="Model01 Commander" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="PreferencesViewController" customModule="Model01Commander" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Model01Commander" showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="PreferencesViewController" customModule="Model01Commander" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
                         <rect key="frame" x="0.0" y="0.0" width="589" height="326"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -726,7 +726,7 @@
                                 <rect key="frame" x="20" y="49" width="549" height="257"/>
                                 <clipView key="contentView" drawsBackground="NO" id="5IE-zQ-98M">
                                     <rect key="frame" x="1" y="0.0" width="547" height="256"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="npn-zo-Gl0" id="qKc-g0-beq">
                                             <rect key="frame" x="0.0" y="0.0" width="547" height="233"/>
@@ -958,7 +958,7 @@ DQ
                 </viewController>
                 <customObject id="Tw6-U4-Ft5" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.5" y="703"/>
+            <point key="canvasLocation" x="21" y="695"/>
         </scene>
     </scenes>
     <resources>
