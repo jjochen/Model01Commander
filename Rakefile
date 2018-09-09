@@ -1,0 +1,319 @@
+#
+#  Copyright (c) 2017-Present Jochen Pfeiffer
+#
+#  Permission is hereby granted, free of charge, to any person obtaining a copy
+#  of this software and associated documentation files (the "Software"), to deal
+#  in the Software without restriction, including without limitation the rights
+#  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#  copies of the Software, and to permit persons to whom the Software is
+#  furnished to do so, subject to the following conditions:
+#
+#  The above copyright notice and this permission notice shall be included in
+#  all copies or substantial portions of the Software.
+#
+#  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+#  THE SOFTWARE.
+#
+
+#-- Bootstrap ----------------------------------------------------------------#
+
+desc 'Initialize your working copy'
+task :bootstrap do
+  check_executable('bundler')
+  install_gems
+  install_cocoapods
+end
+
+
+begin
+  require 'fileutils'
+  require 'octokit'
+  require 'cocoapods'
+
+  task default: :test
+
+
+  #-- Tests ------------------------------------------------------------------#
+
+  desc 'Run tests'
+  task :test do
+    xcodebuild_test
+  end
+  
+  desc 'Print debug info'
+  task :print_debug_info do
+    title 'Debug info'
+    sh 'xcodebuild -version'
+    sh 'xcodebuild -showsdks'
+  end
+
+  desc 'Lint swift'
+  task :lint_swift do
+    title 'Linting swift'
+    check_executable('swiftlint')
+    sh "swiftlint"
+  end
+
+
+  #-- Format -----------------------------------------------------------------#
+
+  desc 'Format code'
+  task :format do
+    title 'Formating code'
+    check_executable('swiftformat')
+    sh "swiftformat Model01Commander Model01CommanderTests"
+  end
+
+  desc 'Format and lint code'
+  task :format_and_lint do
+    Rake::Task[:format].invoke
+    Rake::Task[:lint_swift].invoke
+  end
+
+
+  #-- Dependencies -----------------------------------------------------------#
+
+  desc 'Install dependencies'
+  task :install_dependencies do
+    install_gems
+    install_cocoapods
+  end
+
+  desc 'Update dependencies'
+  task :update_dependencies do
+    update_gems
+    update_cocoapods
+  end
+
+
+  #-- Changelog --------------------------------------------------------------#
+
+  desc 'Generate changelog'
+  task :generate_changelog do
+    generate_changelog ""
+  end
+
+
+  #-- Release ----------------------------------------------------------------#
+
+  desc 'Release version'
+  task :release_version, :version do |task, args|
+    ensure_clean_git_status
+    update_version_in_project args.version
+    generate_changelog args.version
+    install_cocoapods
+    create_release_branch_and_commit args.version
+    open_pull_request args.version
+  end
+  
+  desc 'Create release on github'
+  task :create_github_release, :version do |task, args|
+    title "Creating release on github"
+    repo = "jjochen/Model01Commander"
+    version = args.version
+    body = changelog_for_version version
+    options = {
+      :name => version, 
+      :body => body,
+      :draft => false,
+      :prerelease => false
+    }
+    
+    puts "repo: #{repo}"
+    puts "version: #{version}"
+    puts "body: \n#{body}" 
+
+    client = Octokit::Client.new :access_token => ENV['JJ_GITHUB_TOKEN']
+    release = client.create_release repo, version, options
+    puts "#{release.name} created."
+  end
+  
+  desc 'Update github releases'
+  task :update_github_releases do
+    title "Updating releases on github"
+    repo = "jjochen/Model01Commander"
+    
+    client = Octokit::Client.new :access_token => ENV['JJ_GITHUB_TOKEN']
+    client.releases(repo).each do |release|
+      puts
+      
+      url = release.url
+      puts "url: #{url}"
+      
+      version = release.tag_name
+      puts "version: #{version}"
+      
+      body = changelog_for_version version
+      puts "body: \n#{body}"
+      
+      options = {
+        :name => version,
+        :body => body
+      }
+
+      release = client.update_release url, options unless body.empty?
+      puts "#{version} updated."
+    end
+  end
+
+rescue LoadError, NameError => e
+  error_message 'Some Rake tasks have been disabled because the environment' \
+    ' couldn’t be loaded. Be sure to run `rake bootstrap` first.'
+  $stderr.puts e.message
+  $stderr.puts e.backtrace
+  $stderr.puts
+end
+
+
+#-- Helpers ------------------------------------------------------------------#
+
+private
+
+def title(title)
+  cyan_title = "\033[0;36m#{title}\033[0m"
+  puts
+  puts '-' * 80
+  puts cyan_title
+  puts '-' * 80
+  puts
+end
+
+def error_message(message)
+  red_message = "\033[0;31m[!] #{message}\e[0m"
+  $stderr.puts
+  $stderr.puts red_message
+  $stderr.puts
+end
+
+def check_executable(executable)
+  unless system("which #{executable}")
+    error_message "Please install '#{executable}' manually."
+    exit 1
+  end
+end
+
+def check_parameter(parameter)
+  if parameter.nil? || parameter.empty?
+    error_message "parameter can't be empty."
+    exit 1
+  end
+end
+
+def install_gems
+  title 'Installing gems'
+  sh 'bundle install'
+end
+
+def install_cocoapods
+  title 'Installing cocoapods'
+  sh 'bundle exec pod install --repo-update'
+end
+
+def update_gems
+  title 'Updating gems'
+  sh 'bundle update'
+end
+
+def update_cocoapods
+  title 'Updating cocoapods'
+  sh 'bundle exec pod update'
+end
+
+def xcodebuild_test
+  title 'Running tests'
+  sh "xcodebuild clean build test" \
+    "  -workspace Model01Commander.xcworkspace" \
+    "  -scheme Model01Commander" \
+    "  -sdk macosx" \
+    "  CODE_SIGN_IDENTITY=" \
+    "  PROVISIONING_PROFILE=" \
+    " | xcpretty --report junit && exit ${PIPESTATUS[0]}"
+end
+
+def ensure_clean_git_status
+  title "Ensuring clean git status"
+  unless `git diff --shortstat 2> /dev/null | tail -n1` == ''
+    error_message "Uncommited changes. Commit first."
+    exit 1
+  end
+end
+
+def update_version_in_project(version)
+  title "Updating version in example project"
+  check_parameter(version)
+  sh "/usr/libexec/PlistBuddy -c \"Set :CFBundleShortVersionString #{version}\" ./Model01Commander/Info.plist"
+end
+
+def generate_changelog(version)
+  title "Generating changelog"
+  unless version.nil? || version.empty?
+    sh "github_changelog_generator --future-release #{version}"
+  else
+    sh "github_changelog_generator"
+  end  
+end
+
+def changelog_for_version(version)
+  check_parameter(version)
+  changelog = ""
+  File.open("CHANGELOG.md") do |f|
+    in_version = false
+    f.each_line do |line|
+      if in_version
+        if line.match(/^\#\# \[.*/) || line.match(/^\\\* \*.*/)
+          break
+        elsif
+          changelog.concat(line)
+        end
+      elsif line.match(/^\#\# \[#{version}\].*/)
+        in_version = true
+      end
+    end
+  end
+  if changelog.nil? || changelog.empty?
+    error_message "changelog for version #{verion} not found."
+    exit 1
+  end
+  return changelog
+end
+
+def create_release_branch_and_commit(version)
+  title "Creating release branch and commit"
+  check_parameter(version)
+  release_branch = "release/#{version}"
+  sh "git checkout -b #{release_branch}"
+  sh "git add --all"
+  sh "git commit -v -m 'Release #{version}'"
+  sh "git push --set-upstream origin #{release_branch}"
+end
+
+def open_pull_request(version)
+  title "Opening pull request"
+  check_parameter(version)
+  
+  repo = "jjochen/Model01Commander"
+  base = "master"
+  release_branch = "release/#{version}"
+  title = "Release #{version}"
+  
+  puts "repo: #{repo}"
+  puts "base: #{base}"
+  puts "head: #{release_branch}" 
+
+  client = Octokit::Client.new :access_token => ENV['JJ_GITHUB_TOKEN']
+  
+  pull_request = client.create_pull_request repo, base, release_branch, title
+  puts "#{pull_request.title} created."
+  puts pull_request.html_url
+  
+  client.add_labels_to_an_issue repo, pull_request.number, ['release']
+  puts "release label added."
+  
+  sh "open #{pull_request.html_url}"
+end
+
