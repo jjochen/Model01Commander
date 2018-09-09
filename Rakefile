@@ -106,7 +106,6 @@ begin
     ensure_clean_git_status
     update_version_in_project args.version
     generate_changelog args.version
-    install_cocoapods
     create_release_branch_and_commit args.version
     open_pull_request args.version
   end
