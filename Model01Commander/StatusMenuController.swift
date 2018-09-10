@@ -31,14 +31,12 @@ class StatusMenuController: NSObject {
     @IBOutlet var statusMenuItem: NSMenuItem!
     @IBOutlet var connectMenuItem: NSMenuItem!
 
-    fileprivate var serialPortController: SerialPortController {
-        let serialPortController = SerialPortController()
-        serialPortController.delegate = self
-        return serialPortController
-    }
+    fileprivate var serialPortController: SerialPortController?
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        serialPortController = SerialPortController()
+        serialPortController?.delegate = self
         setupMenu()
     }
 }
@@ -53,15 +51,15 @@ fileprivate extension StatusMenuController {
     }
 
     func updateMenu() {
-        let status = serialPortController.isConnected ? "connected" : "disconnected"
+        let status = serialPortConnected ? "connected" : "disconnected"
         statusMenuItem.title = "Model01: \(status)"
-        connectMenuItem.title = serialPortController.isConnected ? "Disconnect" : "Connect"
+        connectMenuItem.title = serialPortConnected ? "Disconnect" : "Connect"
     }
 }
 
 fileprivate extension StatusMenuController {
     @IBAction func connectItemClicked(_: NSMenuItem) {
-        serialPortController.toggleConnection()
+        serialPortController?.toggleConnection()
     }
 
     @IBAction func quitClicked(_ sender: NSMenuItem) {
@@ -69,9 +67,16 @@ fileprivate extension StatusMenuController {
     }
 }
 
-// MARK: - SerialPortControllerDelegate
+// MARK: - SerialPortController
 
 extension StatusMenuController: SerialPortControllerDelegate {
+    var serialPortConnected: Bool {
+        guard let serialPortController = serialPortController else {
+            return false
+        }
+        return serialPortController.isConnected
+    }
+
     func serialPortControllerConnectionDidOpen(_: SerialPortController) {
         updateMenu()
     }
