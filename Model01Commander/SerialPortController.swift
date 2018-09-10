@@ -33,13 +33,13 @@ protocol SerialPortControllerDelegate: AnyObject {
 class SerialPortController: NSObject {
     weak var delegate: SerialPortControllerDelegate?
 
+    fileprivate var userNotificationController = UserNotificationController()
     fileprivate var serialPortManager = ORSSerialPortManager()
     fileprivate var serialPort: ORSSerialPort?
     fileprivate var receivedDataString: String?
 
     override init() {
         super.init()
-        initUserNotifications()
         initNotifications()
         connect()
     }
@@ -197,45 +197,21 @@ fileprivate extension SerialPortController {
     }
 }
 
-// MARK: - NSUserNotifcationCenterDelegate
+// MARK: - User Notifications
 
-extension SerialPortController: NSUserNotificationCenterDelegate {
-    fileprivate func initUserNotifications() {
-        NSUserNotificationCenter.default.delegate = self
+fileprivate extension SerialPortController {
+    func postConnectionDidOpenUserNotification() {
+        userNotificationController.post(withTitle: "Model01 Connected",
+                                        informativeText: "Model01 was connected to your Mac.")
     }
 
-    func userNotificationCenter(_ center: NSUserNotificationCenter, didDeliver notification: NSUserNotification) {
-        let popTime = DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.asyncAfter(deadline: popTime) { () -> Void in
-            center.removeDeliveredNotification(notification)
-        }
+    func postConnectionDidCloseUserNotification() {
+        userNotificationController.post(withTitle: "Model01 Disconnected",
+                                        informativeText: "Model01 was disconnected from your Mac.")
     }
 
-    func userNotificationCenter(_: NSUserNotificationCenter, shouldPresent _: NSUserNotification) -> Bool {
-        return true
-    }
-
-    fileprivate func postConnectionDidOpenUserNotification() {
-        postUserNotification(withTitle: "Model01 Connected",
-                             informativeText: "Model01 was connected to your Mac.")
-    }
-
-    fileprivate func postConnectionDidCloseUserNotification() {
-        postUserNotification(withTitle: "Model01 Disconnected",
-                             informativeText: "Model01 was disconnected from your Mac.")
-    }
-
-    fileprivate func postOpenAppUserNotification(forApp app: String) {
-        postUserNotification(withTitle: "Model01Commander",
-                             informativeText: "Opening \(app).")
-    }
-
-    fileprivate func postUserNotification(withTitle title: String, informativeText: String) {
-        let userNotificationCenter = NSUserNotificationCenter.default
-        let userNotification = NSUserNotification()
-        userNotification.title = title
-        userNotification.informativeText = informativeText
-        userNotification.soundName = nil
-        userNotificationCenter.deliver(userNotification)
+    func postOpenAppUserNotification(forApp app: String) {
+        userNotificationController.post(withTitle: "Model01Commander",
+                                        informativeText: "Opening \(app).")
     }
 }
