@@ -53,17 +53,21 @@ private struct DefaultValue {
 }
 
 class Preferences {
-    static func setup() {
+    var store: UserDefaults
+
+    init(store: UserDefaults) {
+        self.store = store
+
+        setup()
+    }
+
+    func setup() {
         print("Serial Port Path: \(serialPortPath)")
         print("Serial Port Baud Rate: \(serialPortBaudRate)")
         print("Application Mapping: \(applicationMapping)")
     }
 
-    static func safe() {
-        userDefaults.synchronize()
-    }
-
-    static var serialPortPath: String {
+    var serialPortPath: String {
         set(value) {
             set(value, forKey: .serialPortPath)
         }
@@ -72,7 +76,7 @@ class Preferences {
         }
     }
 
-    static var serialPortBaudRate: NSNumber {
+    var serialPortBaudRate: NSNumber {
         set(value) {
             set(value, forKey: .serialPortBaudRate)
         }
@@ -81,7 +85,7 @@ class Preferences {
         }
     }
 
-    static var applicationMapping: [String: String] {
+    var applicationMapping: [String: String] {
         set(value) {
             set(value, forKey: .applicationMapping)
         }
@@ -90,7 +94,7 @@ class Preferences {
         }
     }
 
-    static func applicationPath(forKey key: String?) -> String? {
+    func applicationPath(forKey key: String?) -> String? {
         guard let key = key else {
             return nil
         }
@@ -99,16 +103,12 @@ class Preferences {
 }
 
 fileprivate extension Preferences {
-    static var userDefaults: UserDefaults {
-        return UserDefaults.standard
+    func set(_ value: Any?, forKey key: PreferencesKey) {
+        store.set(value, forKey: key.rawValue)
     }
 
-    static func set(_ value: Any?, forKey key: PreferencesKey) {
-        userDefaults.set(value, forKey: key.rawValue)
-    }
-
-    static func object<T>(forKey key: PreferencesKey, defaultValue: T) -> T {
-        guard let value = userDefaults.object(forKey: key.rawValue) as? T else {
+    func object<T>(forKey key: PreferencesKey, defaultValue: T) -> T {
+        guard let value = store.object(forKey: key.rawValue) as? T else {
             set(defaultValue, forKey: key)
             return defaultValue
         }

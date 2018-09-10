@@ -31,11 +31,15 @@ class StatusMenuController: NSObject {
     @IBOutlet var statusMenuItem: NSMenuItem!
     @IBOutlet var connectMenuItem: NSMenuItem!
 
+    fileprivate let userNotificationController = UserNotificationController()
+    fileprivate let preferences = Preferences(store: UserDefaults.standard)
     fileprivate var serialPortController: SerialPortController?
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        serialPortController = SerialPortController()
+
+        serialPortController = SerialPortController(preferences: preferences,
+                                                    userNotificationController: userNotificationController)
         serialPortController?.delegate = self
         setupMenu()
     }

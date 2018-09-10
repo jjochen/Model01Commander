@@ -26,11 +26,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    func applicationDidFinishLaunching(_: Notification) {
-        Preferences.setup()
-    }
+    func applicationDidFinishLaunching(_: Notification) {}
 
-    func applicationWillTerminate(_: Notification) {
-        Preferences.safe()
-    }
+    func applicationWillTerminate(_: Notification) {}
 }

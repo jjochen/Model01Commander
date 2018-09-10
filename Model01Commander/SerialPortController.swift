@@ -33,12 +33,17 @@ protocol SerialPortControllerDelegate: AnyObject {
 class SerialPortController: NSObject {
     weak var delegate: SerialPortControllerDelegate?
 
-    fileprivate var userNotificationController = UserNotificationController()
+    var userNotificationController: UserNotificationController
+    var preferences: Preferences
+
     fileprivate var serialPortManager = ORSSerialPortManager()
     fileprivate var serialPort: ORSSerialPort?
     fileprivate var receivedDataString: String?
 
-    override init() {
+    init(preferences: Preferences, userNotificationController: UserNotificationController) {
+        self.preferences = preferences
+        self.userNotificationController = userNotificationController
+
         super.init()
         initNotifications()
         connect()
@@ -55,8 +60,8 @@ extension SerialPortController {
     }
 
     func connect() {
-        serialPort = ORSSerialPort(path: Preferences.serialPortPath)
-        serialPort?.baudRate = Preferences.serialPortBaudRate
+        serialPort = ORSSerialPort(path: preferences.serialPortPath)
+        serialPort?.baudRate = preferences.serialPortBaudRate
         serialPort?.delegate = self
         serialPort?.dtr = true
         serialPort?.rts = true
@@ -96,7 +101,7 @@ extension SerialPortController {
             return
         }
         connectedPorts.forEach { port in
-            if port.path == Preferences.serialPortPath {
+            if port.path == preferences.serialPortPath {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.connect()
                 }
@@ -183,7 +188,7 @@ fileprivate extension SerialPortController {
     }
 
     func open(_ app: String) {
-        guard let path = Preferences.applicationPath(forKey: app) else {
+        guard let path = preferences.applicationPath(forKey: app) else {
             print("Warning: App identfier unknown (\(app)).")
             return
         }
