@@ -1,5 +1,12 @@
 # Change Log
 
+## [0.1.1](https://github.com/jjochen/Model01Commander/tree/0.1.1) (2018-09-10)
+[Full Changelog](https://github.com/jjochen/Model01Commander/compare/0.1.0...0.1.1)
+
+**Merged pull requests:**
+
+- Do not recreate serial port controller [\#4](https://github.com/jjochen/Model01Commander/pull/4) [[fixed](https://github.com/jjochen/Model01Commander/labels/fixed)]
+
 ## [0.1.0](https://github.com/jjochen/Model01Commander/tree/0.1.0) (2018-09-09)
 **Merged pull requests:**
 
