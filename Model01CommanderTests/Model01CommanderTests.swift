@@ -1,5 +1,5 @@
 //
-//  Model01CommanderTests.swift
+//  PreferencesTests.swift
 //
 //  Copyright (c) 2018 Jochen Pfeiffer
 //
@@ -25,26 +25,54 @@
 @testable import Model01Commander
 import XCTest
 
-class Model01CommanderTests: XCTestCase {
+class PreferencesTests: XCTestCase {
+    var preferences: Preferences!
+
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        preferences = nil
         super.tearDown()
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testSerialPortPath() {
+        let mockUserDefaults = MockUserDefaults()
+        let preferences = Preferences(store: mockUserDefaults)
+
+        let defaultValue = preferences.serialPortPath
+        XCTAssertNotNil(defaultValue)
+
+        let value = "new value"
+        preferences.serialPortPath = value
+        XCTAssertEqual(preferences.serialPortPath, value)
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testSerialPortBaudRate() {
+        let mockUserDefaults = MockUserDefaults()
+        let preferences = Preferences(store: mockUserDefaults)
+
+        let defaultValue = preferences.serialPortBaudRate
+        XCTAssertNotNil(defaultValue)
+
+        let value:NSNumber = 42
+        preferences.serialPortBaudRate = value
+        XCTAssertEqual(preferences.serialPortBaudRate, value)
+    }
+
+    func testApplicationMapping() {
+        let mockUserDefaults = MockUserDefaults()
+        let preferences = Preferences(store: mockUserDefaults)
+
+        let defaultValue = preferences.applicationMapping
+        XCTAssertNotNil(defaultValue)
+
+        let value = [
+            "browser": "/Applications/Google Chrome.app",
+            "calendar": "/Applications/Calendar.app"
+            ]
+        preferences.applicationMapping = value
+        XCTAssertEqual(preferences.applicationMapping, value)
     }
 }

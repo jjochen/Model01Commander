@@ -57,14 +57,7 @@ class Preferences {
 
     init(store: UserDefaults) {
         self.store = store
-
         setup()
-    }
-
-    func setup() {
-        print("Serial Port Path: \(serialPortPath)")
-        print("Serial Port Baud Rate: \(serialPortBaudRate)")
-        print("Application Mapping: \(applicationMapping)")
     }
 
     var serialPortPath: String {
@@ -103,6 +96,12 @@ class Preferences {
 }
 
 fileprivate extension Preferences {
+    func setup() {
+        print("Serial Port Path: \(serialPortPath)")
+        print("Serial Port Baud Rate: \(serialPortBaudRate)")
+        print("Application Mapping: \(applicationMapping)")
+    }
+
     func set(_ value: Any?, forKey key: PreferencesKey) {
         store.set(value, forKey: key.rawValue)
     }
