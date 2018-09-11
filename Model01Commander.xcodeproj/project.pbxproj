@@ -11,7 +11,7 @@
 		193841092141492F00EE0013 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841082141492F00EE0013 /* PreferencesViewController.swift */; };
 		1938410B2141493100EE0013 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1938410A2141493100EE0013 /* Assets.xcassets */; };
 		1938410E2141493100EE0013 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1938410C2141493100EE0013 /* Main.storyboard */; };
-		1938411A2141493100EE0013 /* Model01CommanderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841192141493100EE0013 /* Model01CommanderTests.swift */; };
+		1938411A2141493100EE0013 /* PreferencesSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841192141493100EE0013 /* PreferencesSpec.swift */; };
 		193841252141749400EE0013 /* StatusMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841242141749400EE0013 /* StatusMenuController.swift */; };
 		1938414F2143C3A800EE0013 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1938414E2143C3A800EE0013 /* Preferences.swift */; };
 		193841512143D9D300EE0013 /* SerialPortController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193841502143D9D300EE0013 /* SerialPortController.swift */; };
@@ -42,7 +42,7 @@
 		1938410F2141493100EE0013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		193841102141493100EE0013 /* Model01Commander.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Model01Commander.entitlements; sourceTree = "<group>"; };
 		193841152141493100EE0013 /* Model01CommanderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Model01CommanderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		193841192141493100EE0013 /* Model01CommanderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model01CommanderTests.swift; sourceTree = "<group>"; };
+		193841192141493100EE0013 /* PreferencesSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesSpec.swift; sourceTree = "<group>"; };
 		1938411B2141493100EE0013 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		193841242141749400EE0013 /* StatusMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusMenuController.swift; sourceTree = "<group>"; };
 		1938414E2143C3A800EE0013 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				19C34F6721469A7E00116CAE /* Mocks */,
-				193841192141493100EE0013 /* Model01CommanderTests.swift */,
+				193841192141493100EE0013 /* PreferencesSpec.swift */,
 				1938411B2141493100EE0013 /* Info.plist */,
 			);
 			path = Model01CommanderTests;
@@ -183,6 +183,7 @@
 				193841112141493100EE0013 /* Sources */,
 				193841122141493100EE0013 /* Frameworks */,
 				193841132141493100EE0013 /* Resources */,
+				D213E501571D3E2E718544AE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -270,6 +271,26 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Model01Commander/Pods-Model01Commander-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		D213E501571D3E2E718544AE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Model01CommanderTests/Pods-Model01CommanderTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Nimble/Nimble.framework",
+				"${BUILT_PRODUCTS_DIR}/Quick/Quick.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Nimble.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Quick.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Model01CommanderTests/Pods-Model01CommanderTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EA53B132EBB2EAFD5041B353 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,7 +349,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19C34F6921469AA800116CAE /* MockUserDefaults.swift in Sources */,
-				1938411A2141493100EE0013 /* Model01CommanderTests.swift in Sources */,
+				1938411A2141493100EE0013 /* PreferencesSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,8 +538,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6B97D2A1F9F15DF4E6EDB73D /* Pods-Model01CommanderTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2TV9GXC7CB;
@@ -530,6 +551,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jochen-pfeiffer.Model01CommanderTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Model01Commander.app/Contents/MacOS/Model01Commander";
 			};
@@ -539,8 +561,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F0F21D188D2FF42953FE05E /* Pods-Model01CommanderTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 2TV9GXC7CB;
@@ -552,6 +574,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jochen-pfeiffer.Model01CommanderTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Model01Commander.app/Contents/MacOS/Model01Commander";
 			};

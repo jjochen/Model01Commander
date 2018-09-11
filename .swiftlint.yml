@@ -1,5 +1,6 @@
 included:
   - Model01Commander
+  - Model01CommanderTests
 
 opt_in_rules:
   - empty_count

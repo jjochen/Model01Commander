@@ -23,7 +23,6 @@
 //  THE SOFTWARE.
 //
 
-
 import Foundation
 
 class MockUserDefaults: UserDefaults {
